@@ -440,3 +440,64 @@ border-bottom:1px solid #999;
 margin-top:20px;
 font-weight:bold;
 }
+
+/* Retro table styling */
+table {
+  font-family: verdana, arial, sans-serif;
+  font-size: small;
+  border-collapse: collapse;
+  border: 2px solid #000;
+  background: #FFF;
+  margin: 1em 0;
+  width: auto;
+}
+
+table th {
+  background: #000;
+  color: #FFF;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px 12px;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: x-small;
+}
+
+table td {
+  padding: 6px 12px;
+  border: 1px solid #999;
+  background: #FFF;
+}
+
+table tr:nth-child(even) td {
+  background: #F3F3F3;
+}
+
+table tr:hover td {
+  background: #EEE;
+}
+
+/* Alternate retro style: dotted borders */
+table.dotted {
+  border: 2px dotted #666;
+}
+
+table.dotted th {
+  background: #666;
+  border: 1px dotted #999;
+}
+
+table.dotted td {
+  border: 1px dotted #BBB;
+}
+
+/* Compact table style */
+table.compact {
+  font-size: x-small;
+}
+
+table.compact th,
+table.compact td {
+  padding: 4px 8px;
+}
