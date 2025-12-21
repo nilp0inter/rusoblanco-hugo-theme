@@ -441,8 +441,9 @@ margin-top:20px;
 font-weight:bold;
 }
 
-/* Retro table styling */
-table {
+/* Retro table styling - only for content tables, not calendar */
+.blogbody table,
+.item-description table {
   font-family: verdana, arial, sans-serif;
   font-size: small;
   border-collapse: collapse;
@@ -452,7 +453,8 @@ table {
   width: auto;
 }
 
-table th {
+.blogbody table th,
+.item-description table th {
   background: #000;
   color: #FFF;
   font-weight: bold;
@@ -464,40 +466,49 @@ table th {
   font-size: x-small;
 }
 
-table td {
+.blogbody table td,
+.item-description table td {
   padding: 6px 12px;
   border: 1px solid #999;
   background: #FFF;
 }
 
-table tr:nth-child(even) td {
+.blogbody table tr:nth-child(even) td,
+.item-description table tr:nth-child(even) td {
   background: #F3F3F3;
 }
 
-table tr:hover td {
+.blogbody table tr:hover td,
+.item-description table tr:hover td {
   background: #EEE;
 }
 
 /* Alternate retro style: dotted borders */
-table.dotted {
+.blogbody table.dotted,
+.item-description table.dotted {
   border: 2px dotted #666;
 }
 
-table.dotted th {
+.blogbody table.dotted th,
+.item-description table.dotted th {
   background: #666;
   border: 1px dotted #999;
 }
 
-table.dotted td {
+.blogbody table.dotted td,
+.item-description table.dotted td {
   border: 1px dotted #BBB;
 }
 
 /* Compact table style */
-table.compact {
+.blogbody table.compact,
+.item-description table.compact {
   font-size: x-small;
 }
 
-table.compact th,
-table.compact td {
+.blogbody table.compact th,
+.blogbody table.compact td,
+.item-description table.compact th,
+.item-description table.compact td {
   padding: 4px 8px;
 }
