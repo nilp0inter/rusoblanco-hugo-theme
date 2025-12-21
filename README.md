@@ -60,16 +60,26 @@ title = "rusoblanco"
 theme = "rusoblanco-hugo-theme"
 
 [params]
-  description = "My personal blog"
+  description = "A classic blog with the rusoblanco aesthetic"
   author = "Your Name"
+  banner_image = "images/rusoblanco2.gif"  # Optional: Use image logo instead of text
   intro = """
-**Welcome!**
+**Welcome to rusoblanco!**
 
 This is my blog.
 """
   footer_text = "powered by [Hugo](https://gohugo.io) and [NanoBlogger](https://nanoblogger.sourceforge.net/) theme"
   contact = "you@example.com"
   mainSections = ["post"]
+
+# Sidebar links (optional)
+[[params.sidebar_links]]
+  name = "Main"
+  url = "/"
+
+[[params.sidebar_links]]
+  name = "Archives"
+  url = "/archives/"
 
 # Enable year-based archives taxonomy
 [taxonomies]
@@ -90,10 +100,30 @@ This is my blog.
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
 
+# RSS Configuration
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "rss"
+
 # Configure permalinks
 [permalinks]
   post = "/archives/:year/:month/:day/:slug/"
 ```
+
+### Banner Image
+
+The theme includes the original rusoblanco banner image (`rusoblanco2.gif`). To use it:
+
+```toml
+[params]
+  banner_image = "images/rusoblanco2.gif"
+```
+
+If you want to use your own banner image:
+1. Place your image in `static/images/`
+2. Set `banner_image = "images/your-banner.gif"`
+
+If `banner_image` is not set, the theme will display the site title as text with the description below it.
 
 ## Creating Content
 
