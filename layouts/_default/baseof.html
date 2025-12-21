@@ -15,6 +15,7 @@
   {{ with .Description }}
   <meta name="description" content="{{ . }}">
   {{ end }}
+  {{- partial "head-extra.html" . -}}
   <link rel="shortcut icon" href="{{ "images/favicon.ico" | relURL }}">
   <link rel="stylesheet" href="{{ "css/nb_rusoblanco.css" | relURL }}">
   {{ range .AlternativeOutputFormats -}}
