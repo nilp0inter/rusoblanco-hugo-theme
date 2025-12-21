@@ -20,7 +20,17 @@
   {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
   {{ end -}}
+  {{ $hasMath := false }}
   {{ if or .Params.math .Site.Params.math }}
+    {{ $hasMath = true }}
+  {{ else if .IsHome }}
+    {{ range (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
+      {{ if .Params.math }}
+        {{ $hasMath = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ if $hasMath }}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
