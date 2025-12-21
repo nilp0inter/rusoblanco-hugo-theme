@@ -1,0 +1,57 @@
+{{ define "main" }}
+<a id="top"></a>
+<div class="archives">
+  <h2>{{ .Title }} Archives</h2>
+  
+  <div id="menu">
+    <a href="{{ "/" | relURL }}">Main</a> &gt; 
+    <a href="{{ "/archives/" | relURL }}">Archives</a> &gt;<br />
+    
+    {{- /* Year navigation */ -}}
+    {{- $currentYear := .Title -}}
+    {{- $allYears := slice -}}
+    {{- range $yearName, $_ := .Site.Taxonomies.years -}}
+      {{- $allYears = $allYears | append $yearName -}}
+    {{- end -}}
+    {{- $allYears = sort $allYears -}}
+    
+    {{- $prevYear := "" -}}
+    {{- $nextYear := "" -}}
+    {{- range $index, $year := $allYears -}}
+      {{- if eq $year $currentYear -}}
+        {{- if gt $index 0 -}}
+          {{- $prevYear = index $allYears (sub $index 1) -}}
+        {{- end -}}
+        {{- if lt $index (sub (len $allYears) 1) -}}
+          {{- $nextYear = index $allYears (add $index 1) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    
+    {{ if $prevYear }}
+    <a href="{{ "/years/" | relURL }}{{ $prevYear | urlize }}/">&lt;</a>
+    {{ end }}
+    {{ $currentYear }}
+    {{ if $nextYear }}
+    <a href="{{ "/years/" | relURL }}{{ $nextYear | urlize }}/">&gt;</a>
+    {{ end }}
+  </div>
+  
+  <br />
+  <a id="entry"></a><strong>Browse by entry</strong>
+  <div>
+    {{ range .Pages.ByDate }}
+    {{ .Date.Format "2006/01" }} - <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- with .Params.categories }} - 
+      {{- range $index, $category := . -}}
+        {{- if gt $index 0 }}, {{ end -}}
+        <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+      {{- end -}}
+    {{- end -}}
+    <br />
+    {{ end }}
+  </div>
+  
+  <div class="menu"><a href="#top">/\</a></div>
+</div>
+{{ end }}

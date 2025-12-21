@@ -1,0 +1,49 @@
+baseURL = "https://example.org/"
+languageCode = "en-us"
+title = "My Blog"
+theme = "nanoblogger-hugo-theme"
+
+[params]
+  description = "A simple blog powered by Hugo"
+  author = "Your Name"
+  intro = """
+**Introduction**
+
+This is my blog. Replace this text with your own introduction in the `config.toml` file.
+"""
+  footer_text = "powered by [Hugo](https://gohugo.io) and [NanoBlogger](https://nanoblogger.sourceforge.net/) theme"
+  contact = "you@example.com"
+  mainSections = ["post"]
+  
+# Sidebar links (optional)
+[[params.sidebar_links]]
+  name = "Main"
+  url = "/"
+
+# Enable year-based archives taxonomy
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  year = "years"
+
+# Enable syntax highlighting with line numbers
+[markup]
+  [markup.highlight]
+    style = "monokailight"
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+
+# Enable RSS
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+# RSS Configuration
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "rss"
+
+# Configure permalinks
+[permalinks]
+  post = "/archives/:year/:month/:day/:slug/"

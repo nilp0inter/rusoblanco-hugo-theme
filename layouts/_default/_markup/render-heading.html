@@ -1,0 +1,7 @@
+{{- /* Shift heading levels: h1->h3, h2->h4, h3->h5, etc. */ -}}
+{{- /* This ensures proper hierarchy since post title is h3 */ -}}
+{{- $level := add .Level 2 -}}
+{{- if gt $level 6 -}}
+  {{- $level = 6 -}}
+{{- end -}}
+<h{{ $level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}</h{{ $level }}>

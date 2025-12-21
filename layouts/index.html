@@ -1,0 +1,44 @@
+{{ define "main" }}
+<a id="top"></a>
+{{ with .Site.Params.intro }}
+<div class="intro">
+  {{ . | markdownify }}
+</div>
+{{ end }}
+<div class="blog">
+  {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+  {{ range (.Paginate $pages).Pages }}
+  <div class="item">
+    <a id="{{ .File.BaseFileName }}"></a>
+    <h2 class="date">{{ .Date.Format "January 2, 2006 3:04 PM" }}</h2>
+    <div class="blogbody">
+      <h3 class="title">{{ .Title }}</h3>
+      <div class="item-description">
+        {{ .Content }}
+      </div>
+    </div>
+    <div class="posted">
+      <br />
+      Posted by <span class="item-creator">{{ .Site.Params.author | default "Author" }}</span> | 
+      <a class="link" href="{{ .RelPermalink }}">Permanent link</a>
+      {{ with .Params.categories }}
+       | Filed under: 
+      {{ range $index, $category := . }}
+        {{ if gt $index 0 }}, {{ end }}
+        <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+  <div class="menu">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}">« Newer</a>
+    {{ end }}
+    {{ if and .Paginator.HasPrev .Paginator.HasNext }} | {{ end }}
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}">Older »</a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

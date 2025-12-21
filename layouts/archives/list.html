@@ -1,0 +1,49 @@
+{{ define "main" }}
+<a id="top"></a>
+<div class="archives">
+  <h2>Archives</h2>
+  
+  <div id="menu">
+    <a href="{{ "/" | relURL }}">Main</a>
+  </div>
+  
+  <br />
+  <strong>Browse by year</strong>
+  <div>
+    {{- $years := .Site.Taxonomies.years -}}
+    {{- $yearsList := slice -}}
+    {{- range $yearName, $_ := $years -}}
+      {{- $yearsList = $yearsList | append $yearName -}}
+    {{- end -}}
+    {{- $yearsList = sort $yearsList "value" "desc" -}}
+    {{ range $yearsList }}
+    <a href="{{ "/years/" | relURL }}{{ . | urlize }}/">{{ . }}</a> ({{ len (index $years .) }} {{ if eq (len (index $years .)) 1 }}entry{{ else }}entries{{ end }})<br />
+    {{ end }}
+  </div>
+  
+  <br />
+  <strong>Browse by category</strong>
+  <div>
+    {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+    <a href="{{ "/categories/" | relURL }}{{ $name | urlize }}/">{{ $name }}</a> ({{ len $taxonomy }})<br />
+    {{ end }}
+  </div>
+  
+  <br />
+  <strong>Browse by entry</strong>
+  <div>
+    {{ range .Site.RegularPages.ByDate.Reverse }}
+    {{ .Date.Format "2006/01/02" }} - <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- with .Params.categories }} - 
+      {{- range $index, $category := . -}}
+        {{- if gt $index 0 }}, {{ end -}}
+        <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+      {{- end -}}
+    {{- end -}}
+    <br />
+    {{ end }}
+  </div>
+  
+  <div class="menu"><a href="#top">/\</a></div>
+</div>
+{{ end }}

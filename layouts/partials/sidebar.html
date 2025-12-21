@@ -1,0 +1,63 @@
+<div id="links">
+  {{- /* Calendar widget */ -}}
+  {{ if not .Site.Params.disable_calendar }}
+  {{ partial "calendar.html" . }}
+  {{ end }}
+
+  {{ with .Site.Params.sidebar_links }}
+  <div class="sidetitle">Links</div>
+  <div class="side">
+    {{ range . }}
+    <a href="{{ .url }}">{{ .name }}</a><br />
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <div class="sidetitle">Recent entries</div>
+  <div class="side">
+    {{ range first 10 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a><br />
+    {{ end }}
+  </div>
+
+  {{ $taxonomies := .Site.Taxonomies.categories }}
+  {{ if gt (len $taxonomies) 0 }}
+  <div class="sidetitle">Categories</div>
+  <div class="side">
+    {{ range $name, $taxonomy := $taxonomies }}
+    <a href="{{ "/categories/" | relURL }}{{ $name | urlize }}/">{{ $name }}</a> ({{ len $taxonomy }})<br />
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <div class="sidetitle">Archives</div>
+  <div class="side">
+    <a href="{{ "/archives/" | relURL }}">Archive Index</a><br />
+    {{- $years := .Site.Taxonomies.years -}}
+    {{- range $yearName, $yearPages := $years -}}
+    <a href="{{ "/years/" | relURL }}{{ $yearName | urlize }}/">{{ $yearName }}</a> ({{ len $yearPages }})<br />
+    {{- end -}}
+  </div>
+
+  <div class="sidetitle"></div>
+  <div class="syndicate">
+    Site 
+    {{ with .OutputFormats.Get "RSS" }}
+    (<a href="{{ .RelPermalink }}" class="feed-small">RSS</a>)
+    {{ end }}
+    <br />
+  </div>
+
+  {{ with .Site.Params.contact }}
+  <div class="sidetitle">Contact</div>
+  <div class="side">
+    <a href="mailto:{{ . }}">{{ . }}</a>
+  </div>
+  {{ end }}
+
+  {{ with .Site.Params.footer_text }}
+  <div class="powered">
+    {{ . | markdownify }}
+  </div>
+  {{ end }}
+</div>

@@ -1,0 +1,19 @@
+name = "NanoBlogger"
+license = "MIT"
+licenselink = "https://github.com/nilp0inter/nanoblogger-hugo-theme/blob/main/LICENSE"
+description = "A faithful recreation of the classic NanoBlogger static site generator theme for Hugo"
+homepage = "https://github.com/nilp0inter/nanoblogger-hugo-theme"
+tags = ["blog", "minimal", "clean", "simple", "sidebar", "classic", "nanoblogger", "retro"]
+features = ["blog", "calendar", "archives", "categories", "rss", "code-highlighting", "math"]
+min_version = "0.112.0"
+
+[author]
+  name = "nilp0inter"
+  homepage = "https://github.com/nilp0inter"
+
+[original]
+  name = "NanoBlogger"
+  author = "n1xt3r"
+  homepage = "https://nanoblogger.sourceforge.net/"
+  license = "GPL"
+  description = "Original NanoBlogger static site generator that inspired this theme"

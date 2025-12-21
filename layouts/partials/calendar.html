@@ -1,0 +1,78 @@
+{{- /* Calendar widget for NanoBlogger Hugo theme */ -}}
+{{- $currentMonth := now.Month -}}
+{{- $currentYear := now.Year -}}
+
+{{- /* Get all posts for the current month */ -}}
+{{- $postsThisMonth := where .Site.RegularPages "Date.Month" "eq" $currentMonth -}}
+{{- $postsThisMonth = where $postsThisMonth "Date.Year" "eq" $currentYear -}}
+
+{{- /* Create a map of days with posts */ -}}
+{{- $postDays := slice -}}
+{{- range $postsThisMonth -}}
+  {{- $postDays = $postDays | append .Date.Day -}}
+{{- end -}}
+
+{{- /* Calculate first day of month and days in month */ -}}
+{{- $firstDay := time (printf "%d-%02d-01" $currentYear (int $currentMonth)) -}}
+{{- $firstWeekday := int $firstDay.Weekday -}}
+{{- $daysInMonth := 31 -}}
+{{- if or (eq $currentMonth 4) (eq $currentMonth 6) (eq $currentMonth 9) (eq $currentMonth 11) -}}
+  {{- $daysInMonth = 30 -}}
+{{- else if eq $currentMonth 2 -}}
+  {{- $daysInMonth = 28 -}}
+  {{- if or (eq (mod $currentYear 400) 0) (and (eq (mod $currentYear 4) 0) (ne (mod $currentYear 100) 0)) -}}
+    {{- $daysInMonth = 29 -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="calendar">
+  <table border="0" cellspacing="4" cellpadding="0" summary="Calendar">
+    <caption class="calendarhead">{{ now.Format "January 2006" }}</caption>
+    <tr>
+      <th><span class="calendarday">Su</span></th>
+      <th><span class="calendarday">Mo</span></th>
+      <th><span class="calendarday">Tu</span></th>
+      <th><span class="calendarday">We</span></th>
+      <th><span class="calendarday">Th</span></th>
+      <th><span class="calendarday">Fr</span></th>
+      <th><span class="calendarday">Sa</span></th>
+    </tr>
+    {{- $dayCounter := 1 -}}
+    {{- $weekStarted := false -}}
+    {{- range $week := seq 0 5 -}}
+      {{- if lt $dayCounter $daysInMonth -}}
+    <tr>
+        {{- range $weekday := seq 0 6 -}}
+          {{- if and (not $weekStarted) (lt $weekday $firstWeekday) -}}
+      <td></td>
+          {{- else -}}
+            {{- $weekStarted = true -}}
+            {{- if le $dayCounter $daysInMonth -}}
+              {{- $hasPost := false -}}
+              {{- range $postDays -}}
+                {{- if eq . $dayCounter -}}
+                  {{- $hasPost = true -}}
+                {{- end -}}
+              {{- end -}}
+              {{- if $hasPost -}}
+                {{- /* Find the first post on this day */ -}}
+                {{- range $postsThisMonth -}}
+                  {{- if eq .Date.Day $dayCounter -}}
+      <td><span class="calendar"><a href="{{ .RelPermalink }}">{{ $dayCounter }}</a></span></td>
+                    {{- break -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- else -}}
+      <td><span class="calendar">{{ $dayCounter }}</span></td>
+              {{- end -}}
+              {{- $dayCounter = add $dayCounter 1 -}}
+            {{- else -}}
+      <td></td>
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+    </tr>
+      {{- end -}}
+    {{- end -}}
+  </table>
+</div>

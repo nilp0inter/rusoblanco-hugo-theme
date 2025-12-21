@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Hugo {{ hugo.Version }}">
+  {{ if .IsHome }}
+  <title>{{ .Site.Title }}</title>
+  {{ else }}
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  {{ end }}
+  {{ with .Site.Params.description }}
+  <meta name="description" content="{{ . }}">
+  {{ end }}
+  {{ with .Description }}
+  <meta name="description" content="{{ . }}">
+  {{ end }}
+  <link rel="stylesheet" href="{{ "css/nb_clean.css" | relURL }}">
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
+  {{ if or .Params.math .Site.Params.math }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\(', right: '\\)', display: false}
+            ]
+          });"></script>
+  {{ end }}
+  <script>
+    // Add copy buttons to code blocks
+    document.addEventListener('DOMContentLoaded', function() {
+      const highlights = document.querySelectorAll('.highlight');
+      
+      highlights.forEach(function(highlight) {
+        // Find the code element
+        const codeElement = highlight.querySelector('code[class*="language-"]');
+        if (!codeElement) return;
+        
+        // Create copy button
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.setAttribute('type', 'button');
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+        
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Get code text - check if using line numbers table
+          let code = '';
+          const table = highlight.querySelector('.lntable');
+          
+          if (table) {
+            // Line numbers in table - get only code column (second td)
+            const codeTd = table.querySelector('.lntd:last-child code');
+            code = codeTd ? (codeTd.innerText || codeTd.textContent) : '';
+          } else {
+            // No line numbers table
+            code = codeElement.innerText || codeElement.textContent;
+          }
+          
+          navigator.clipboard.writeText(code).then(function() {
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            setTimeout(function() {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          }).catch(function(err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed';
+            setTimeout(function() {
+              button.textContent = 'Copy';
+            }, 2000);
+          });
+        });
+        
+        // Add button to the highlight div
+        highlight.appendChild(button);
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="banner">
+    <h1><a href="{{ "/" | relURL }}" accesskey="1">{{ .Site.Title }}</a></h1>
+    {{ with .Site.Params.description }}
+    <span class="description">{{ . }}</span>
+    {{ end }}
+  </div>
+  <div id="container">
+    {{ partial "sidebar.html" . }}
+    <div id="content">
+      {{ block "main" . }}{{ end }}
+      <div class="menu"><a href="#top">/\</a></div>
+    </div>
+  </div>
+</body>
+</html>
