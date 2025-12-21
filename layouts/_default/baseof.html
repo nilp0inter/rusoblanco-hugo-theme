@@ -92,9 +92,9 @@
     <a href="{{ "/" | relURL }}" accesskey="1"><img src="{{ .Site.Params.banner_image | relURL }}" border="0" alt="{{ .Site.Title }}"></a>
     {{ else }}
     <h1><a href="{{ "/" | relURL }}" accesskey="1">{{ .Site.Title }}</a></h1>
-    {{ end }}
     {{ with .Site.Params.description }}
     <span class="description">{{ . }}</span>
+    {{ end }}
     {{ end }}
   </div>
   <div id="container">
