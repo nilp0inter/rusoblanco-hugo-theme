@@ -15,7 +15,7 @@
   {{ with .Description }}
   <meta name="description" content="{{ . }}">
   {{ end }}
-  <link rel="stylesheet" href="{{ "css/nb_clean.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/nb_rusoblanco.css" | relURL }}">
   {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
   {{ end -}}

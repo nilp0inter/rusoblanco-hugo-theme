@@ -1,9 +1,9 @@
-name = "NanoBlogger"
+name = "rusoblanco"
 license = "MIT"
-licenselink = "https://github.com/nilp0inter/nanoblogger-hugo-theme/blob/main/LICENSE"
-description = "A faithful recreation of the classic NanoBlogger static site generator theme for Hugo"
-homepage = "https://github.com/nilp0inter/nanoblogger-hugo-theme"
-tags = ["blog", "minimal", "clean", "simple", "sidebar", "classic", "nanoblogger", "retro"]
+licenselink = "https://github.com/nilp0inter/rusoblanco-hugo-theme/blob/main/LICENSE"
+description = "rusoblanco personal theme - A customized version of the classic NanoBlogger theme"
+homepage = "https://github.com/nilp0inter/rusoblanco-hugo-theme"
+tags = ["blog", "minimal", "clean", "simple", "sidebar", "classic", "nanoblogger", "rusoblanco", "personal"]
 features = ["blog", "calendar", "archives", "categories", "rss", "code-highlighting", "math"]
 min_version = "0.112.0"
 
@@ -12,6 +12,12 @@ min_version = "0.112.0"
   homepage = "https://github.com/nilp0inter"
 
 [original]
+  name = "www.rusoblanco.com"
+  author = "nilp0inter"
+  homepage = "https://www.rusoblanco.com"
+  description = "Original www.rusoblanco.com blog from the 2000s"
+
+[basedOn]
   name = "NanoBlogger"
   author = "n1xt3r"
   homepage = "https://nanoblogger.sourceforge.net/"
