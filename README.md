@@ -26,7 +26,7 @@ A Hugo theme inspired by the classic NanoBlogger static site generator. This the
 1. Initialize your Hugo site as a module:
 
 ```bash
-hugo mod init github.com/yourusername/yoursite
+hugo mod init github.com/nilp0inter/yoursite
 ```
 
 2. Add the theme to your `config.toml`:
@@ -34,14 +34,14 @@ hugo mod init github.com/yourusername/yoursite
 ```toml
 [module]
   [[module.imports]]
-    path = "github.com/yourusername/nanoblogger-hugo-theme"
+    path = "github.com/nilp0inter/nanoblogger-hugo-theme"
 ```
 
 ### As a Git Submodule
 
 ```bash
 cd your-hugo-site
-git submodule add https://github.com/yourusername/nanoblogger-hugo-theme.git themes/nanoblogger-hugo-theme
+git submodule add https://github.com/nilp0inter/nanoblogger-hugo-theme.git themes/nanoblogger-hugo-theme
 ```
 
 Then add to your `config.toml`:
