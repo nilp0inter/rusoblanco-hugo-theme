@@ -1,0 +1,137 @@
+{{- /* Multi-month calendar widget - generates all months with posts */ -}}
+
+{{- /* Get date range from all posts */ -}}
+{{- $allPosts := .Site.RegularPages -}}
+{{- if eq (len $allPosts) 0 -}}
+  {{- /* No posts, show current month */ -}}
+  {{- $allPosts = slice -}}
+{{- end -}}
+
+{{- $oldestPost := index $allPosts (sub (len $allPosts) 1) -}}
+{{- $newestPost := index $allPosts 0 -}}
+
+{{- $startYear := $oldestPost.Date.Year -}}
+{{- $startMonth := int $oldestPost.Date.Month -}}
+{{- $endYear := $newestPost.Date.Year -}}
+{{- $endMonth := int $newestPost.Date.Month -}}
+
+{{- /* Helper function to generate a single month calendar */ -}}
+{{- define "partials/calendar-month" -}}
+  {{- $year := .year -}}
+  {{- $month := .month -}}
+  {{- $allPosts := .posts -}}
+  
+  {{- /* Get all posts for this month */ -}}
+  {{- $postsThisMonth := where $allPosts "Date.Month" "eq" $month -}}
+  {{- $postsThisMonth = where $postsThisMonth "Date.Year" "eq" $year -}}
+  
+  {{- /* Create a map of days with posts */ -}}
+  {{- $postDays := slice -}}
+  {{- range $postsThisMonth -}}
+    {{- $postDays = $postDays | append .Date.Day -}}
+  {{- end -}}
+  
+  {{- /* Calculate first day of month and days in month */ -}}
+  {{- $firstDay := time (printf "%d-%02d-01" $year $month) -}}
+  {{- $firstWeekday := int $firstDay.Weekday -}}
+  {{- $daysInMonth := 31 -}}
+  {{- if or (eq $month 4) (eq $month 6) (eq $month 9) (eq $month 11) -}}
+    {{- $daysInMonth = 30 -}}
+  {{- else if eq $month 2 -}}
+    {{- $daysInMonth = 28 -}}
+    {{- if or (eq (mod $year 400) 0) (and (eq (mod $year 4) 0) (ne (mod $year 100) 0)) -}}
+      {{- $daysInMonth = 29 -}}
+    {{- end -}}
+  {{- end -}}
+  
+  <div class="calendar">
+    <table border="0" cellspacing="4" cellpadding="0" summary="Calendar">
+      <caption class="calendarhead">{{ $firstDay.Format "January 2006" }}</caption>
+      <tr>
+        <th><span class="calendarday">Su</span></th>
+        <th><span class="calendarday">Mo</span></th>
+        <th><span class="calendarday">Tu</span></th>
+        <th><span class="calendarday">We</span></th>
+        <th><span class="calendarday">Th</span></th>
+        <th><span class="calendarday">Fr</span></th>
+        <th><span class="calendarday">Sa</span></th>
+      </tr>
+      {{- $dayCounter := 1 -}}
+      {{- $weekStarted := false -}}
+      {{- range $week := seq 0 5 -}}
+        {{- if lt $dayCounter $daysInMonth -}}
+      <tr>
+          {{- range $weekday := seq 0 6 -}}
+            {{- if and (not $weekStarted) (lt $weekday $firstWeekday) -}}
+        <td></td>
+            {{- else -}}
+              {{- $weekStarted = true -}}
+              {{- if le $dayCounter $daysInMonth -}}
+                {{- $hasPost := false -}}
+                {{- range $postDays -}}
+                  {{- if eq . $dayCounter -}}
+                    {{- $hasPost = true -}}
+                  {{- end -}}
+                {{- end -}}
+                {{- if $hasPost -}}
+                  {{- /* Find the first post on this day */ -}}
+                  {{- range $postsThisMonth -}}
+                    {{- if eq .Date.Day $dayCounter -}}
+        <td><span class="calendar"><a href="{{ .RelPermalink }}">{{ $dayCounter }}</a></span></td>
+                      {{- break -}}
+                    {{- end -}}
+                  {{- end -}}
+                {{- else -}}
+        <td><span class="calendar">{{ $dayCounter }}</span></td>
+                {{- end -}}
+                {{- $dayCounter = add $dayCounter 1 -}}
+              {{- else -}}
+        <td></td>
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+      </tr>
+        {{- end -}}
+      {{- end -}}
+    </table>
+  </div>
+{{- end -}}
+
+<div class="calendar-widget">
+  {{- /* Navigation buttons */ -}}
+  <button class="calendar-prev" aria-label="Previous month">‹</button>
+  
+  {{- /* Generate all calendars (hidden by default) */ -}}
+  {{- $currentYear := $startYear -}}
+  {{- $currentMonth := $startMonth -}}
+  {{- $index := 0 -}}
+  
+  {{- range $yearOffset := seq 0 (sub $endYear $startYear) -}}
+    {{- $currentYear = add $startYear $yearOffset -}}
+    {{- $monthStart := 1 -}}
+    {{- $monthEnd := 12 -}}
+    
+    {{- /* Adjust for first year */ -}}
+    {{- if eq $currentYear $startYear -}}
+      {{- $monthStart = $startMonth -}}
+    {{- end -}}
+    
+    {{- /* Adjust for last year */ -}}
+    {{- if eq $currentYear $endYear -}}
+      {{- $monthEnd = $endMonth -}}
+    {{- end -}}
+    
+    {{- range $monthOffset := seq 0 (sub $monthEnd $monthStart) -}}
+      {{- $currentMonth = add $monthStart $monthOffset -}}
+      {{- $isFirst := and (eq $currentYear $endYear) (eq $currentMonth $endMonth) -}}
+      
+      <div class="calendar-month" data-year="{{ $currentYear }}" data-month="{{ $currentMonth }}" data-index="{{ $index }}" style="display: {{ cond $isFirst "block" "none" }};">
+        {{- partial "calendar-month" (dict "year" $currentYear "month" $currentMonth "posts" $allPosts) -}}
+      </div>
+      
+      {{- $index = add $index 1 -}}
+    {{- end -}}
+  {{- end -}}
+  
+  <button class="calendar-next" aria-label="Next month">›</button>
+</div>

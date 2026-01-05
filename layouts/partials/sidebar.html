@@ -1,6 +1,7 @@
 {{- /* Calendar widget */ -}}
 {{ if not .Site.Params.disable_calendar }}
-{{ partial "calendar.html" . }}
+<div class="sidetitle">Calendar</div>
+{{ partial "calendar-nav.html" . }}
 {{ end }}
 
 {{ with .Site.Params.sidebar_links }}

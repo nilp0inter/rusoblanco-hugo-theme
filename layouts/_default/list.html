@@ -7,7 +7,7 @@
     <div class="blogbody">
       <h2 class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       <div class="posted">
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006 3:04 PM" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
         {{ with .Params.categories }}
          | Filed under: 
         {{ range $index, $category := . }}

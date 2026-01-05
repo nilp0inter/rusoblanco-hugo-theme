@@ -115,6 +115,48 @@
         wrapper.appendChild(lineNumsButton);
         wrapper.appendChild(copyButton);
       });
+      
+      // Calendar navigation
+      const calendarWidget = document.querySelector('.calendar-widget');
+      if (calendarWidget) {
+        const months = calendarWidget.querySelectorAll('.calendar-month');
+        const prevBtn = calendarWidget.querySelector('.calendar-prev');
+        const nextBtn = calendarWidget.querySelector('.calendar-next');
+        let currentIndex = 0;
+        
+        // Find initially visible month
+        months.forEach((month, index) => {
+          if (month.style.display !== 'none') {
+            currentIndex = index;
+          }
+        });
+        
+        function updateCalendar() {
+          months.forEach((month, index) => {
+            month.style.display = index === currentIndex ? 'block' : 'none';
+          });
+          
+          // Update button states
+          prevBtn.disabled = currentIndex <= 0;
+          nextBtn.disabled = currentIndex >= months.length - 1;
+        }
+        
+        prevBtn.addEventListener('click', function() {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateCalendar();
+          }
+        });
+        
+        nextBtn.addEventListener('click', function() {
+          if (currentIndex < months.length - 1) {
+            currentIndex++;
+            updateCalendar();
+          }
+        });
+        
+        updateCalendar();
+      }
     });
   </script>
 </head>
