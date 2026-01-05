@@ -561,6 +561,26 @@ time.date {
   text-align: center;
 }
 
+.menu a[href="#top"] {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dark);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: var(--font-size-sm);
+}
+
+.menu a[href="#top"]:hover {
+  background: var(--color-gray-lighter);
+  color: var(--color-black);
+}
+
+.menu a[href="#top"]::after {
+  content: " Top";
+}
+
 .posted {
   font-family: var(--font-family);
   font-size: var(--font-size-sm);
@@ -572,19 +592,13 @@ time.date {
 .posted a:link,
 .posted a:visited {
   color: #003366;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: bold;
-  padding: 8px 16px;
-  background: var(--color-gray-lighter);
-  border-radius: 4px;
-  display: inline-block;
-  transition: background 0.2s;
 }
 
 .posted a:hover,
 .posted a:active {
-  background: var(--color-gray-light);
-  color: var(--color-black);
+  color: var(--color-gray);
 }
 
 /* Calendar widget */
