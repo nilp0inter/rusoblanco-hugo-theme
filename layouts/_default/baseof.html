@@ -45,56 +45,75 @@
           });"></script>
   {{ end }}
   <script>
-    // Add copy buttons to code blocks
+    // Add copy and line numbers toggle buttons to code blocks
     document.addEventListener('DOMContentLoaded', function() {
-      const highlights = document.querySelectorAll('.highlight');
+      const codeWrappers = document.querySelectorAll('.code-block-wrapper');
       
-      highlights.forEach(function(highlight) {
-        // Find the code element
-        const codeElement = highlight.querySelector('code[class*="language-"]');
-        if (!codeElement) return;
+      codeWrappers.forEach(function(wrapper) {
+        const withLines = wrapper.querySelector('.code-with-lines');
+        const withoutLines = wrapper.querySelector('.code-without-lines');
         
-        // Create copy button
-        const button = document.createElement('button');
-        button.className = 'copy-button';
-        button.textContent = 'Copy';
-        button.setAttribute('type', 'button');
-        button.setAttribute('aria-label', 'Copy code to clipboard');
+        if (!withLines || !withoutLines) return;
         
-        button.addEventListener('click', function(e) {
+        // Create line numbers toggle button
+        const lineNumsButton = document.createElement('button');
+        lineNumsButton.className = 'linenums-button';
+        lineNumsButton.textContent = '#';
+        lineNumsButton.setAttribute('type', 'button');
+        lineNumsButton.setAttribute('aria-label', 'Toggle line numbers');
+        lineNumsButton.setAttribute('title', 'Toggle line numbers');
+        
+        lineNumsButton.addEventListener('click', function(e) {
           e.preventDefault();
           
-          // Get code text - check if using line numbers table
-          let code = '';
-          const table = highlight.querySelector('.lntable');
-          
-          if (table) {
-            // Line numbers in table - get only code column (second td)
-            const codeTd = table.querySelector('.lntd:last-child code');
-            code = codeTd ? (codeTd.innerText || codeTd.textContent) : '';
+          if (withLines.style.display === 'none') {
+            // Show version with line numbers
+            withLines.style.display = 'block';
+            withoutLines.style.display = 'none';
+            lineNumsButton.classList.add('active');
           } else {
-            // No line numbers table
-            code = codeElement.innerText || codeElement.textContent;
+            // Show version without line numbers
+            withLines.style.display = 'none';
+            withoutLines.style.display = 'block';
+            lineNumsButton.classList.remove('active');
           }
+        });
+        
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.textContent = 'Copy';
+        copyButton.setAttribute('type', 'button');
+        copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+        
+        copyButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Always copy from the version without line numbers
+          const codeElement = withoutLines.querySelector('code');
+          if (!codeElement) return;
+          
+          const code = codeElement.innerText || codeElement.textContent;
           
           navigator.clipboard.writeText(code).then(function() {
-            button.textContent = 'Copied!';
-            button.classList.add('copied');
+            copyButton.textContent = 'Copied!';
+            copyButton.classList.add('copied');
             setTimeout(function() {
-              button.textContent = 'Copy';
-              button.classList.remove('copied');
+              copyButton.textContent = 'Copy';
+              copyButton.classList.remove('copied');
             }, 2000);
           }).catch(function(err) {
             console.error('Failed to copy:', err);
-            button.textContent = 'Failed';
+            copyButton.textContent = 'Failed';
             setTimeout(function() {
-              button.textContent = 'Copy';
+              copyButton.textContent = 'Copy';
             }, 2000);
           });
         });
         
-        // Add button to the highlight div
-        highlight.appendChild(button);
+        // Add buttons to the wrapper
+        wrapper.appendChild(lineNumsButton);
+        wrapper.appendChild(copyButton);
       });
     });
   </script>

@@ -1,0 +1,14 @@
+{{- $lang := .Type -}}
+{{- $code := .Inner -}}
+{{- $opts := dict "lang" $lang "style" "monokailight" "noClasses" true -}}
+{{- $optsWithLines := merge $opts (dict "lineNos" true "lineNumbersInTable" true) -}}
+{{- $optsWithoutLines := merge $opts (dict "lineNos" false) -}}
+
+<div class="code-block-wrapper">
+  <div class="code-version code-with-lines" style="display: none;">
+    {{ highlight $code $lang $optsWithLines }}
+  </div>
+  <div class="code-version code-without-lines">
+    {{ highlight $code $lang $optsWithoutLines }}
+  </div>
+</div>
