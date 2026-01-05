@@ -1,13 +1,13 @@
 {{ define "main" }}
 <a id="top"></a>
 <div class="blog">
-  <h2 class="date">{{ .Title }}</h2>
+  <h1 class="date">{{ .Title }}</h1>
   {{ range .Pages }}
-  <div class="item">
+  <article class="item">
     <div class="blogbody">
-      <h3 class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <h2 class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       <div class="posted">
-        {{ .Date.Format "January 2, 2006 3:04 PM" }}
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006 3:04 PM" }}</time>
         {{ with .Params.categories }}
          | Filed under: 
         {{ range $index, $category := . }}
@@ -17,9 +17,9 @@
         {{ end }}
       </div>
     </div>
-  </div>
+  </article>
   {{ end }}
-  <div class="menu">
+  <nav class="menu">
     {{ if .Paginator }}
       {{ if .Paginator.HasPrev }}
       <a href="{{ .Paginator.Prev.URL }}">« Newer</a>
@@ -29,6 +29,6 @@
       <a href="{{ .Paginator.Next.URL }}">Older »</a>
       {{ end }}
     {{ end }}
-  </div>
+  </nav>
 </div>
 {{ end }}

@@ -1,16 +1,18 @@
 {{ define "main" }}
 <a id="top"></a>
 <div class="blog">
-  <div class="item">
-    <h2 class="date">{{ .Date.Format "January 2, 2006 3:04 PM" }}</h2>
+  <article class="item">
+    <header>
+      <time class="date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006 3:04 PM" }}</time>
+      <h1 class="title">{{ .Title }}</h1>
+    </header>
     <div class="blogbody">
       <a id="{{ .File.BaseFileName }}"></a>
-      <h3 class="title">{{ .Title }}</h3>
       <div class="item-description">
         {{ .Content }}
       </div>
     </div>
-    <div class="posted">
+    <footer class="posted">
       <br />
       Posted by <span class="item-creator">{{ .Site.Params.author | default "Author" }}</span> | 
       <a class="link" href="{{ .RelPermalink }}">Permanent link</a>
@@ -21,7 +23,7 @@
         <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
       {{ end }}
       {{ end }}
-    </div>
-  </div>
+    </footer>
+  </article>
 </div>
 {{ end }}

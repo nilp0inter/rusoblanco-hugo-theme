@@ -305,6 +305,14 @@ pre {
   overflow-x: hidden;
 }
 
+article.item header {
+  margin-bottom: 1em;
+}
+
+article.item footer {
+  margin-top: 1em;
+}
+
 .blogbody {
   font-family: var(--font-family);
   color: var(--color-text);
@@ -363,12 +371,16 @@ pre {
   margin-bottom: var(--spacing-md);
 }
 
-#menu,
-.menu {
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
+article.item h1.title {
+  font-size: var(--font-size-lg);
+  margin-top: 0;
   margin-bottom: var(--spacing-md);
-  text-align: center;
+}
+
+article.item h2.title {
+  font-size: var(--font-size-md);
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
 }
 
 .date {
@@ -378,6 +390,19 @@ pre {
   border-bottom: var(--border-solid);
   margin-bottom: var(--spacing-sm);
   font-weight: bold;
+  display: block;
+}
+
+time.date {
+  display: block;
+}
+
+#menu,
+.menu {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
 }
 
 .posted {
