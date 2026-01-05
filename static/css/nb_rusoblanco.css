@@ -577,14 +577,57 @@ ul.side a:hover {
   color: var(--color-text-dark);
   text-align: left;
   margin-bottom: 1em;
+  font-size: var(--font-size-lg);
+  border-bottom: 2px solid var(--color-black);
+  padding-bottom: 0.5em;
 }
 
 .archives #menu {
   margin-bottom: 2em;
+  padding: var(--spacing-sm);
+  background: var(--color-gray-lighter);
+  border: var(--border-solid);
+  text-align: center;
 }
 
 .archives strong {
   color: var(--color-text-dark);
+  display: block;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  border-bottom: var(--border-dotted);
+  padding-bottom: 0.5em;
+}
+
+.archives > div:not(#menu):not(.menu) {
+  margin-left: var(--spacing-md);
+  line-height: 1.8;
+}
+
+.archives .entry-line {
+  padding: 0.3em 0;
+  border-bottom: 1px dotted var(--color-gray-light);
+}
+
+.archives .entry-line:hover {
+  background: var(--color-gray-lighter);
+  padding-left: 0.5em;
+  margin-left: -0.5em;
+}
+
+.archives .entry-date {
+  color: var(--color-text-light);
+  font-family: monospace;
+  font-size: var(--font-size-xs);
+  margin-right: 0.5em;
+}
+
+.archives .entry-count {
+  color: var(--color-text-light);
+  font-size: var(--font-size-xs);
 }
 
 /* Comments */

@@ -17,7 +17,10 @@
     {{- end -}}
     {{- $yearsList = sort $yearsList "value" "desc" -}}
     {{ range $yearsList }}
-    <a href="{{ "/years/" | relURL }}{{ . | urlize }}/">{{ . }}</a> ({{ len (index $years .) }} {{ if eq (len (index $years .)) 1 }}entry{{ else }}entries{{ end }})<br />
+    <div class="entry-line">
+      <a href="{{ "/years/" | relURL }}{{ . | urlize }}/">{{ . }}</a> 
+      <span class="entry-count">({{ len (index $years .) }} {{ if eq (len (index $years .)) 1 }}entry{{ else }}entries{{ end }})</span>
+    </div>
     {{ end }}
   </div>
   
@@ -25,7 +28,10 @@
   <strong>Browse by category</strong>
   <div>
     {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-    <a href="{{ "/categories/" | relURL }}{{ $name | urlize }}/">{{ $name }}</a> ({{ len $taxonomy }})<br />
+    <div class="entry-line">
+      <a href="{{ "/categories/" | relURL }}{{ $name | urlize }}/">{{ $name }}</a> 
+      <span class="entry-count">({{ len $taxonomy }} {{ if eq (len $taxonomy) 1 }}entry{{ else }}entries{{ end }})</span>
+    </div>
     {{ end }}
   </div>
   
@@ -33,17 +39,18 @@
   <strong>Browse by entry</strong>
   <div>
     {{ range .Site.RegularPages.ByDate.Reverse }}
-    {{ .Date.Format "2006/01/02" }} - <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    {{- with .Params.categories }} - 
-      {{- range $index, $category := . -}}
-        {{- if gt $index 0 }}, {{ end -}}
-        <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+    <div class="entry-line">
+      <span class="entry-date">{{ .Date.Format "2006/01/02" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- with .Params.categories -}}
+        {{- range $index, $category := . -}}
+          {{- if eq $index 0 }} - {{ end -}}
+          {{- if gt $index 0 }}, {{ end -}}
+          <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+        {{- end -}}
       {{- end -}}
-    {{- end -}}
-    <br />
+    </div>
     {{ end }}
   </div>
-  
-  <div class="menu"><a href="#top">/\</a></div>
 </div>
 {{ end }}

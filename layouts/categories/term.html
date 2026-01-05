@@ -1,0 +1,28 @@
+{{ define "main" }}
+<a id="top"></a>
+<div class="archives">
+  <h2>{{ .Title }}</h2>
+  
+  <div id="menu">
+    <a href="{{ "/" | relURL }}">Main</a> | <a href="{{ "/archives/" | relURL }}">Archives</a>
+  </div>
+  
+  <br />
+  <strong>Entries in this category</strong>
+  <div>
+    {{ range .Pages.ByDate.Reverse }}
+    <div class="entry-line">
+      <span class="entry-date">{{ .Date.Format "2006/01/02" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- with .Params.categories -}}
+        {{- range $index, $category := . -}}
+          {{- if eq $index 0 }} - {{ end -}}
+          {{- if gt $index 0 }}, {{ end -}}
+          <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/">{{ $category }}</a>
+        {{- end -}}
+      {{- end -}}
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
