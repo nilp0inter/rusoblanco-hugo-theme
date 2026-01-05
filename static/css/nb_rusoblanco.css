@@ -408,7 +408,7 @@ pre {
 .blog {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) 60px var(--spacing-md) 60px;
   overflow-x: hidden;
 }
 
@@ -429,11 +429,12 @@ article.item footer {
 .blogbody {
   font-family: var(--font-family);
   color: var(--color-text);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
   font-weight: normal;
   line-height: 120%;
   max-width: 100%;
   overflow-x: hidden;
+  text-align: justify;
 }
 
 .blogbody h2,
@@ -1066,7 +1067,7 @@ ul.side a:hover {
   
   .blog {
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-lg);
   }
   
   /* Adjust banner for mobile */
@@ -1130,7 +1131,7 @@ ul.side a:hover {
   }
   
   .blog {
-    padding: 8px;
+    padding: 8px var(--spacing-md) 8px var(--spacing-md);
   }
   
   .blogbody {
