@@ -276,11 +276,19 @@ pre {
 }
 
 #links {
-  padding: 0 21px var(--spacing-lg) var(--spacing-md);
+  padding: 0;
   border-left: var(--border-dotted);
   border-bottom: var(--border-dotted);
   order: 2;
   width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 21px var(--spacing-lg) var(--spacing-md);
 }
 
 /* Blog content */
@@ -697,9 +705,8 @@ ul.side a:hover {
 /* Desktop sidebar collapse button */
 .sidebar-collapse {
   display: flex;
-  position: absolute;
-  top: 10px;
-  left: 0;
+  position: fixed;
+  top: calc(var(--banner-height, 60px) + 10px);
   z-index: 10;
   background: var(--color-banner-bg);
   color: var(--color-white);
@@ -711,7 +718,6 @@ ul.side a:hover {
   font-size: 18px;
   font-weight: bold;
   line-height: 1;
-  transition: all 0.3s ease;
   align-items: center;
   justify-content: center;
 }
@@ -736,7 +742,6 @@ ul.side a:hover {
   font-size: 18px;
   font-weight: bold;
   line-height: 1;
-  transition: all 0.3s ease;
   align-items: center;
   justify-content: center;
 }
@@ -756,7 +761,8 @@ ul.side a:hover {
 
 #links {
   position: relative;
-  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Responsive design - tablet and mobile */

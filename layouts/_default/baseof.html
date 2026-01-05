@@ -124,7 +124,9 @@
       <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Hide sidebar">
         »
       </button>
-      {{ partial "sidebar.html" . }}
+      <div class="sidebar-content">
+        {{ partial "sidebar.html" . }}
+      </div>
     </aside>
   </div>
   <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar" style="display: none;">
@@ -140,15 +142,21 @@
       const sidebarExpand = document.getElementById('sidebar-expand');
       const banner = document.getElementById('banner');
       
-      // Position expand button to match collapse button
-      function updateExpandButtonPosition() {
+      // Position buttons to match banner height
+      function updateButtonPositions() {
         const bannerHeight = banner.offsetHeight;
+        const sidebarRect = sidebar.getBoundingClientRect();
+        const leftPosition = sidebarRect.left;
+        
+        sidebarCollapse.style.top = (bannerHeight + 10) + 'px';
+        sidebarCollapse.style.left = leftPosition + 'px';
         sidebarExpand.style.top = (bannerHeight + 10) + 'px';
       }
       
       // Update position on load and resize
-      updateExpandButtonPosition();
-      window.addEventListener('resize', updateExpandButtonPosition);
+      updateButtonPositions();
+      window.addEventListener('resize', updateButtonPositions);
+      window.addEventListener('scroll', updateButtonPositions);
       
       // Mobile hamburger menu
       menuToggle.addEventListener('click', function() {
@@ -168,6 +176,7 @@
         sidebar.classList.remove('collapsed');
         container.classList.remove('sidebar-collapsed');
         sidebarExpand.style.display = 'none';
+        setTimeout(updateButtonPositions, 50);
       });
       
       // Close mobile menu when clicking outside
