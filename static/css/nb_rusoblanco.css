@@ -440,7 +440,7 @@ article.item footer {
   line-height: 1.7;
   max-width: 100%;
   overflow-x: hidden;
-  text-align: left;
+  text-align: justify;
 }
 
 .blogbody p {
