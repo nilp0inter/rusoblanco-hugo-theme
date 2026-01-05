@@ -512,3 +512,83 @@ font-weight:bold;
 .item-description table.compact td {
   padding: 4px 8px;
 }
+
+/* Responsive design - mobile and tablet devices */
+@media screen and (max-width: 768px) {
+  /* Stack layout vertically */
+  #content {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+  }
+  
+  #links {
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    border-left: none;
+    border-top: 1px dotted #999;
+  }
+  
+  .blog {
+    width: auto;
+    padding: 10px;
+  }
+  
+  /* Reduce banner padding on mobile */
+  #banner {
+    padding: 10px;
+  }
+  
+  /* Make tables horizontally scrollable */
+  .blogbody table,
+  .item-description table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  /* Adjust pre/code blocks for mobile */
+  pre {
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+  }
+  
+  .highlight pre {
+    overflow-x: auto;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 480px) {
+  #banner {
+    font-size: medium;
+    padding: 8px;
+  }
+  
+  #banner a,
+  #banner a:link,
+  #banner a:visited,
+  #banner a:active,
+  #banner a:hover {
+    font-size: medium;
+  }
+  
+  .blog {
+    padding: 8px;
+  }
+  
+  .blogbody {
+    font-size: x-small;
+  }
+  
+  /* Make copy button smaller on mobile */
+  .copy-button {
+    font-size: 9px;
+    padding: 3px 6px;
+    top: 4px;
+    right: 4px;
+  }
+}
