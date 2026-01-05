@@ -100,22 +100,86 @@
   </script>
 </head>
 <body>
-  <div id="banner">
+  <header id="banner">
     {{ if .Site.Params.banner_image }}
     <a href="{{ "/" | relURL }}" accesskey="1"><img src="{{ .Site.Params.banner_image | relURL }}" border="0" alt="{{ .Site.Title }}"></a>
     {{ else }}
     <h1><a href="{{ "/" | relURL }}" accesskey="1">{{ .Site.Title }}</a></h1>
     {{ with .Site.Params.description }}
-    <span class="description">{{ . }}</span>
+    <p class="description">{{ . }}</p>
     {{ end }}
     {{ end }}
-  </div>
+  </header>
+  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle sidebar menu">
+    <span class="menu-icon"></span>
+    <span class="menu-icon"></span>
+    <span class="menu-icon"></span>
+  </button>
   <div id="container">
-    {{ partial "sidebar.html" . }}
-    <div id="content">
+    <main id="content">
       {{ block "main" . }}{{ end }}
-      <div class="menu"><a href="#top">/\</a></div>
-    </div>
+      <nav class="menu"><a href="#top">/\</a></nav>
+    </main>
+    <aside id="links">
+      <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Hide sidebar">
+        »
+      </button>
+      {{ partial "sidebar.html" . }}
+    </aside>
   </div>
+  <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar" style="display: none;">
+    «
+  </button>
+  <script>
+    // Mobile and desktop menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('links');
+      const container = document.getElementById('container');
+      const sidebarCollapse = document.getElementById('sidebar-collapse');
+      const sidebarExpand = document.getElementById('sidebar-expand');
+      const banner = document.getElementById('banner');
+      
+      // Position expand button to match collapse button
+      function updateExpandButtonPosition() {
+        const bannerHeight = banner.offsetHeight;
+        sidebarExpand.style.top = (bannerHeight + 10) + 'px';
+      }
+      
+      // Update position on load and resize
+      updateExpandButtonPosition();
+      window.addEventListener('resize', updateExpandButtonPosition);
+      
+      // Mobile hamburger menu
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show-mobile');
+        menuToggle.classList.toggle('active');
+      });
+      
+      // Desktop sidebar collapse
+      sidebarCollapse.addEventListener('click', function() {
+        sidebar.classList.add('collapsed');
+        container.classList.add('sidebar-collapsed');
+        sidebarExpand.style.display = 'flex';
+      });
+      
+      // Desktop sidebar expand
+      sidebarExpand.addEventListener('click', function() {
+        sidebar.classList.remove('collapsed');
+        container.classList.remove('sidebar-collapsed');
+        sidebarExpand.style.display = 'none';
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+            sidebar.classList.remove('show-mobile');
+            menuToggle.classList.remove('active');
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
