@@ -1096,6 +1096,22 @@ ul.side a:hover {
   .highlight pre {
     overflow-x: auto;
   }
+  
+  /* Ensure code block buttons stay aligned on mobile */
+  .copy-button,
+  .linenums-button {
+    top: 4px;
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+  
+  .copy-button {
+    right: 4px;
+  }
+  
+  .linenums-button {
+    right: 50px;
+  }
 }
 
 /* Very small screens */
