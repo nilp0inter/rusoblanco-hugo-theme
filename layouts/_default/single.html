@@ -12,6 +12,7 @@
         {{ .Content }}
       </div>
     </div>
+    {{ partial "utterances/script" . }}
     <footer class="posted">
       <br />
       Posted by <span class="item-creator">{{ .Site.Params.author | default "Author" }}</span> | 
