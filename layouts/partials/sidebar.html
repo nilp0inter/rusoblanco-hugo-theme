@@ -5,31 +5,38 @@
 {{ end }}
 
 {{ with .Site.Params.sidebar_links }}
+<nav aria-label="Main links">
 <div class="sidetitle">Links</div>
 <ul class="side">
   {{ range . }}
   <li><a href="{{ .url }}">{{ .name }}</a></li>
   {{ end }}
 </ul>
+</nav>
 {{ end }}
 
+<nav aria-label="Recent posts">
 <div class="sidetitle">Recent entries</div>
 <ul class="side">
   {{ range first 10 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
   <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
 </ul>
+</nav>
 
 {{ $taxonomies := .Site.Taxonomies.categories }}
 {{ if gt (len $taxonomies) 0 }}
+<nav aria-label="Post categories">
 <div class="sidetitle">Categories</div>
 <ul class="side">
   {{ range $name, $taxonomy := $taxonomies }}
   <li><a href="{{ "/categories/" | relURL }}{{ $name | urlize }}/">{{ $name }}</a> ({{ len $taxonomy }})</li>
   {{ end }}
 </ul>
+</nav>
 {{ end }}
 
+<nav aria-label="Post archives">
 <div class="sidetitle">Archives</div>
 <ul class="side">
   <li><a href="{{ "/archives/" | relURL }}">Archive Index</a></li>
@@ -38,6 +45,7 @@
   <li><a href="{{ "/years/" | relURL }}{{ $yearName | urlize }}/">{{ $yearName }}</a> ({{ len $yearPages }})</li>
   {{- end -}}
 </ul>
+</nav>
 
 <div class="sidetitle"></div>
 <div class="syndicate">

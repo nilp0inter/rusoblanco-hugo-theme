@@ -36,7 +36,7 @@
     </footer>
   </article>
   {{ end }}
-  <nav class="menu">
+  <nav class="menu" aria-label="Pagination">
     {{ if .Paginator.HasPrev }}
     <a href="{{ .Paginator.Prev.URL }}">« Newer</a>
     {{ end }}
