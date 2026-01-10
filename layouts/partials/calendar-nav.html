@@ -15,6 +15,15 @@
 {{- $endYear := $newestPost.Date.Year -}}
 {{- $endMonth := int $newestPost.Date.Month -}}
 
+{{- /* Determine the target year and month to display */ -}}
+{{- $targetYear := $endYear -}}
+{{- $targetMonth := $endMonth -}}
+{{- if .IsPage -}}
+  {{- $targetYear = .Date.Year -}}
+  {{- $targetMonth = .Date.Month -}}
+{{- end -}}
+
+
 {{- /* Helper function to generate a single month calendar */ -}}
 {{- define "partials/calendar-month" -}}
   {{- $year := .year -}}
@@ -123,9 +132,9 @@
     
     {{- range $monthOffset := seq 0 (sub $monthEnd $monthStart) -}}
       {{- $currentMonth = add $monthStart $monthOffset -}}
-      {{- $isFirst := and (eq $currentYear $endYear) (eq $currentMonth $endMonth) -}}
+      {{- $shouldDisplay := and (eq $currentYear $targetYear) (eq $currentMonth $targetMonth) -}}
       
-      <div class="calendar-month" data-year="{{ $currentYear }}" data-month="{{ $currentMonth }}" data-index="{{ $index }}" style="display: {{ cond $isFirst "block" "none" }};">
+      <div class="calendar-month" data-year="{{ $currentYear }}" data-month="{{ $currentMonth }}" data-index="{{ $index }}" style="display: {{ cond $shouldDisplay "block" "none" }};">
         {{- partial "calendar-month" (dict "year" $currentYear "month" $currentMonth "posts" $allPosts) -}}
       </div>
       
