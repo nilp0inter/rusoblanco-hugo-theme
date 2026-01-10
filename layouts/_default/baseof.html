@@ -166,12 +166,12 @@
     <span class="menu-icon"></span>
     <span class="menu-icon"></span>
   </button>
-  <div id="container">
+  <div id="container" class="sidebar-collapsed">
     <main id="content">
       {{ block "main" . }}{{ end }}
       <nav class="menu" aria-label="Scroll to top"><a href="#top">↑</a></nav>
     </main>
-    <aside id="links">
+    <aside id="links" class="collapsed">
       <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Hide sidebar">
         »
       </button>
@@ -180,7 +180,7 @@
       </div>
     </aside>
   </div>
-  <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar" style="display: none;">
+  <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar">
     «
   </button>
   <script>
@@ -192,22 +192,41 @@
       const sidebarCollapse = document.getElementById('sidebar-collapse');
       const sidebarExpand = document.getElementById('sidebar-expand');
       const banner = document.getElementById('banner');
-      
+
       // Position buttons to match banner height
       function updateButtonPositions() {
         const bannerHeight = banner.offsetHeight;
-        const sidebarRect = sidebar.getBoundingClientRect();
-        const leftPosition = sidebarRect.left;
-        
         sidebarCollapse.style.top = (bannerHeight + 10) + 'px';
-        sidebarCollapse.style.left = leftPosition + 'px';
         sidebarExpand.style.top = (bannerHeight + 10) + 'px';
+        
+        // Position the expand button on the right edge of the window
+        sidebarExpand.style.right = '0px';
+        sidebarExpand.style.left = 'auto';
+
+        if (!sidebar.classList.contains('collapsed')) {
+            const sidebarRect = sidebar.getBoundingClientRect();
+            sidebarCollapse.style.left = sidebarRect.left + 'px';
+        }
       }
       
+      // Restore sidebar state from localStorage
+      if (localStorage.getItem('sidebarCollapsed') === 'false') {
+        sidebar.classList.remove('collapsed');
+        container.classList.remove('sidebar-collapsed');
+        sidebarExpand.style.display = 'none';
+        sidebarCollapse.style.display = 'inline-block';
+      } else {
+        sidebarExpand.style.display = 'inline-block';
+        sidebarCollapse.style.display = 'none';
+      }
+
       // Update position on load and resize
       updateButtonPositions();
       window.addEventListener('resize', updateButtonPositions);
       window.addEventListener('scroll', updateButtonPositions);
+
+      // Update button positions after sidebar animation
+      sidebar.addEventListener('transitionend', updateButtonPositions);
       
       // Mobile hamburger menu
       menuToggle.addEventListener('click', function() {
@@ -219,7 +238,9 @@
       sidebarCollapse.addEventListener('click', function() {
         sidebar.classList.add('collapsed');
         container.classList.add('sidebar-collapsed');
-        sidebarExpand.style.display = 'flex';
+        sidebarExpand.style.display = 'inline-block';
+        sidebarCollapse.style.display = 'none';
+        localStorage.setItem('sidebarCollapsed', 'true');
       });
       
       // Desktop sidebar expand
@@ -227,7 +248,8 @@
         sidebar.classList.remove('collapsed');
         container.classList.remove('sidebar-collapsed');
         sidebarExpand.style.display = 'none';
-        setTimeout(updateButtonPositions, 50);
+        sidebarCollapse.style.display = 'inline-block';
+        localStorage.setItem('sidebarCollapsed', 'false');
       });
       
       // Close mobile menu when clicking outside
