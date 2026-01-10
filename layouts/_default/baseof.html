@@ -175,16 +175,16 @@
     </main>
     <aside id="links">
       <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Hide sidebar">
-        »
+        ☰
       </button>
       <div class="sidebar-content">
         {{ partial "sidebar.html" . }}
       </div>
     </aside>
+    <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar">
+      ☰
+    </button>
   </div>
-  <button id="sidebar-expand" class="sidebar-expand" aria-label="Show sidebar">
-    «
-  </button>
   <script>
     // Mobile and desktop menu toggle
     document.addEventListener('DOMContentLoaded', function() {
@@ -193,23 +193,6 @@
       const container = document.getElementById('container');
       const sidebarCollapse = document.getElementById('sidebar-collapse');
       const sidebarExpand = document.getElementById('sidebar-expand');
-      const banner = document.getElementById('banner');
-
-      // Position buttons to match banner height
-      function updateButtonPositions() {
-        const bannerHeight = banner.offsetHeight;
-        sidebarCollapse.style.top = (bannerHeight + 10) + 'px';
-        sidebarExpand.style.top = (bannerHeight + 10) + 'px';
-        
-        // Position the expand button on the right edge of the window
-        sidebarExpand.style.right = '0px';
-        sidebarExpand.style.left = 'auto';
-
-        if (!sidebar.classList.contains('collapsed')) {
-            const sidebarRect = sidebar.getBoundingClientRect();
-            sidebarCollapse.style.left = sidebarRect.left + 'px';
-        }
-      }
       
       // Clean up initial state classes and restore sidebar state from localStorage
       document.documentElement.classList.remove('sidebar-collapsed-init', 'sidebar-expanded-init');
@@ -226,14 +209,6 @@
         sidebarExpand.style.display = 'none';
         sidebarCollapse.style.display = 'inline-block';
       }
-
-      // Update position on load and resize
-      updateButtonPositions();
-      window.addEventListener('resize', updateButtonPositions);
-      window.addEventListener('scroll', updateButtonPositions);
-
-      // Update button positions after sidebar animation
-      sidebar.addEventListener('transitionend', updateButtonPositions);
       
       // Mobile hamburger menu
       menuToggle.addEventListener('click', function() {

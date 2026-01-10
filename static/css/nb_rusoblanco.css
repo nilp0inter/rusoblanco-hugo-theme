@@ -413,6 +413,7 @@ pre {
   gap: 60px;
   width: 100%;
   min-height: 100vh;
+  position: relative;
 }
 
 #content {
@@ -429,6 +430,8 @@ pre {
   width: 300px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: visible;
 }
 
 .sidebar-content {
@@ -1067,17 +1070,19 @@ ul.side a:hover {
 /* Desktop sidebar collapse button */
 .sidebar-collapse {
   display: flex;
-  position: fixed;
-  top: calc(var(--banner-height, 60px) + 10px);
+  position: absolute;
+  top: 10px;
+  left: 0;
+  transform: translateX(-100%);
   z-index: 10;
   background: var(--color-banner-bg);
   color: var(--color-white);
   border: var(--border-solid);
-  border-left: none;
-  border-radius: 0 4px 4px 0;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
   padding: 8px 6px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1;
   align-items: center;
@@ -1091,7 +1096,8 @@ ul.side a:hover {
 /* Desktop sidebar expand button */
 .sidebar-expand {
   display: none;
-  position: fixed;
+  position: absolute;
+  top: 10px;
   right: 0;
   z-index: 100;
   background: var(--color-banner-bg);
@@ -1101,7 +1107,7 @@ ul.side a:hover {
   border-radius: 4px 0 0 4px;
   padding: 8px 6px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1;
   align-items: center;
