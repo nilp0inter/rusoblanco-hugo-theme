@@ -116,7 +116,7 @@ blockquote {
 pre {
   overflow-x: auto;
   padding: 1.2em;
-  border: 2px solid var(--color-black);
+  border: 2px solid var(--color-banner-bg);
   position: relative;
   max-width: 100%;
   white-space: pre;
@@ -131,7 +131,7 @@ pre {
   z-index: 1;
   max-width: 100%;
   overflow-x: auto;
-  border: 2px solid var(--color-black);
+  border: 2px solid var(--color-banner-bg);
   border-radius: 0;
 }
 
@@ -827,7 +827,7 @@ ul.side a:hover {
   text-align: left;
   margin-bottom: 1em;
   font-size: var(--font-size-lg);
-  border-bottom: 2px solid var(--color-black);
+  border-bottom: 2px solid var(--color-banner-bg);
   padding-bottom: 0.5em;
 }
 
@@ -907,26 +907,31 @@ ul.side a:hover {
   font-weight: bold;
 }
 
+/* Responsive table container */
+.table-container {
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
 /* Retro table styling */
 .blogbody table,
 .item-description table {
   font-family: var(--font-family);
   font-size: var(--font-size-sm);
   border-collapse: collapse;
-  border: 2px solid var(--color-black);
+  border: 2px solid var(--color-banner-bg);
   background: var(--color-white);
-  margin: 1em 0;
-  width: auto;
+  width: 100%;
 }
 
 .blogbody table th,
 .item-description table th {
-  background: var(--color-black);
+  background: var(--color-banner-bg);
   color: var(--color-white);
   font-weight: bold;
   text-align: left;
   padding: 8px 12px;
-  border: 1px solid var(--color-black);
+  border: 1px solid var(--color-banner-bg);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: var(--font-size-xs);
@@ -1160,15 +1165,7 @@ ul.side a:hover {
   #banner a:hover {
     font-size: var(--font-size-md);
   }
-  
-  /* Make tables scrollable */
-  .blogbody table,
-  .item-description table {
-    display: block;
-    overflow-x: auto;
-    width: 100%;
-  }
-  
+    
   /* Code blocks */
   pre,
   .highlight pre {
