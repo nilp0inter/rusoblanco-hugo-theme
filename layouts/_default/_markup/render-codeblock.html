@@ -1,6 +1,6 @@
 {{- $lang := .Type -}}
 {{- $code := .Inner -}}
-{{- $opts := dict "lang" $lang "style" "monokailight" "noClasses" true -}}
+{{- $opts := dict "lang" $lang -}}
 {{- $optsWithLines := merge $opts (dict "lineNos" true "lineNumbersInTable" true) -}}
 {{- $optsWithoutLines := merge $opts (dict "lineNos" false) -}}
 
