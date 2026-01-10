@@ -982,7 +982,7 @@ ul.side a:hover {
 .item-description table td {
   padding: 6px 12px;
   border: var(--border-solid);
-  background: var(--color-white);
+  background: var(--color-gray-lighter);
 }
 
 .blogbody table tr:nth-child(even) td,
@@ -992,7 +992,7 @@ ul.side a:hover {
 
 .blogbody table tr:hover td,
 .item-description table tr:hover td {
-  background: var(--color-gray-lighter);
+  background: var(--color-gray-light);
 }
 
 /* Alternate retro style: dotted borders */
