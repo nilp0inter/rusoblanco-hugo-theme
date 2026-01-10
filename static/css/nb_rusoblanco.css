@@ -592,7 +592,7 @@ time.date {
 .menu a[href="#top"] {
   display: inline-block;
   padding: 8px 12px;
-  background: var(--color-white);
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
   color: var(--color-text-dark);
   text-decoration: none;
@@ -602,7 +602,7 @@ time.date {
 
 .menu a[href="#top"]:hover {
   background: var(--color-gray-lighter);
-  color: var(--color-black);
+  color: var(--color-text-dark);
 }
 
 .menu a[href="#top"]::after {
