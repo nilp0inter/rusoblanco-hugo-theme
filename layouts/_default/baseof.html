@@ -210,14 +210,15 @@
       }
       
       // Restore sidebar state from localStorage
-      if (localStorage.getItem('sidebarCollapsed') === 'false') {
+      const isCollapsed = localStorage.getItem('sidebarCollapsed');
+      if (isCollapsed === 'true') {
+        sidebarExpand.style.display = 'inline-block';
+        sidebarCollapse.style.display = 'none';
+      } else {
         sidebar.classList.remove('collapsed');
         container.classList.remove('sidebar-collapsed');
         sidebarExpand.style.display = 'none';
         sidebarCollapse.style.display = 'inline-block';
-      } else {
-        sidebarExpand.style.display = 'inline-block';
-        sidebarCollapse.style.display = 'none';
       }
 
       // Update position on load and resize
