@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Hugo {{ hugo.Version }}">
+  {{ partial "head-theme.html" . }}
   {{ if .IsHome }}
   <title>{{ .Site.Title }}</title>
   {{ else }}
@@ -264,6 +265,7 @@
       });
     });
   </script>
+  <script src="{{ "js/darkmode.js" | relURL }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true });
