@@ -1,0 +1,9 @@
+<script>
+  (function() {
+    const isCollapsed = localStorage.getItem('sidebarCollapsed');
+    if (isCollapsed === 'true') {
+      document.documentElement.classList.add('sidebar-collapsed-init');
+    }
+    // Default to expanded (no class needed, handled by CSS default)
+  })();
+</script>

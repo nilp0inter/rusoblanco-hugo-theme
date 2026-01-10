@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Hugo {{ hugo.Version }}">
   {{ partial "head-theme.html" . }}
+  {{ partial "head-sidebar.html" . }}
   {{ if .IsHome }}
   <title>{{ .Site.Title }}</title>
   {{ else }}
@@ -167,12 +168,12 @@
     <span class="menu-icon"></span>
     <span class="menu-icon"></span>
   </button>
-  <div id="container" class="sidebar-collapsed">
+  <div id="container">
     <main id="content">
       {{ block "main" . }}{{ end }}
       <nav class="menu" aria-label="Scroll to top"><a href="#top">↑</a></nav>
     </main>
-    <aside id="links" class="collapsed">
+    <aside id="links">
       <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Hide sidebar">
         »
       </button>
@@ -210,9 +211,13 @@
         }
       }
       
-      // Restore sidebar state from localStorage
+      // Clean up initial state classes and restore sidebar state from localStorage
+      document.documentElement.classList.remove('sidebar-collapsed-init', 'sidebar-expanded-init');
+      
       const isCollapsed = localStorage.getItem('sidebarCollapsed');
       if (isCollapsed === 'true') {
+        sidebar.classList.add('collapsed');
+        container.classList.add('sidebar-collapsed');
         sidebarExpand.style.display = 'inline-block';
         sidebarCollapse.style.display = 'none';
       } else {

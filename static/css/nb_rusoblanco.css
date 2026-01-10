@@ -1121,6 +1121,15 @@ ul.side a:hover {
   grid-template-columns: 1fr;
 }
 
+/* Initial sidebar state from localStorage - prevents flash */
+html.sidebar-collapsed-init #links {
+  display: none !important;
+}
+
+html.sidebar-collapsed-init #container {
+  grid-template-columns: 1fr;
+}
+
 #links {
   position: relative;
   display: flex;
