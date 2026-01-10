@@ -14,7 +14,7 @@
 
 {{- /* Calculate first day of month and days in month */ -}}
 {{- $firstDay := time (printf "%d-%02d-01" $currentYear (int $currentMonth)) -}}
-{{- $firstWeekday := int $firstDay.Weekday -}}
+{{- $firstWeekday := mod (add (int $firstDay.Weekday) 6) 7 -}}
 {{- $daysInMonth := 31 -}}
 {{- if or (eq $currentMonth 4) (eq $currentMonth 6) (eq $currentMonth 9) (eq $currentMonth 11) -}}
   {{- $daysInMonth = 30 -}}
@@ -29,13 +29,13 @@
   <table border="0" cellspacing="4" cellpadding="0" summary="Calendar">
     <caption class="calendarhead">{{ now.Format "January 2006" }}</caption>
     <tr>
-      <th><span class="calendarday">Su</span></th>
       <th><span class="calendarday">Mo</span></th>
       <th><span class="calendarday">Tu</span></th>
       <th><span class="calendarday">We</span></th>
       <th><span class="calendarday">Th</span></th>
       <th><span class="calendarday">Fr</span></th>
       <th><span class="calendarday">Sa</span></th>
+      <th><span class="calendarday">Su</span></th>
     </tr>
     {{- $dayCounter := 1 -}}
     {{- $weekStarted := false -}}

@@ -36,8 +36,13 @@ The calendar is enabled by default. To disable it:
   <table border="0" cellspacing="4" cellpadding="0" summary="Calendar">
     <caption class="calendarhead">December 2025</caption>
     <tr>
-      <th><span class="calendarday">Su</span></th>
       <th><span class="calendarday">Mo</span></th>
+      <th><span class="calendarday">Tu</span></th>
+      <th><span class="calendarday">We</span></th>
+      <th><span class="calendarday">Th</span></th>
+      <th><span class="calendarday">Fr</span></th>
+      <th><span class="calendarday">Sa</span></th>
+      <th><span class="calendarday">Su</span></th>
       ...
     </tr>
     <tr>
