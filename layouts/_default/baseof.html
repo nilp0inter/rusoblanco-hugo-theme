@@ -152,14 +152,14 @@
   <header id="banner">
     {{ if .Site.Params.banner_image }}
     <a href="{{ "/" | relURL }}" accesskey="1"><img src="{{ .Site.Params.banner_image | relURL }}" border="0" alt="{{ .Site.Title }}"></a>
+    <h1 class="visually-hidden">{{ .Site.Title }}</h1>
     {{ else }}
     <h1><a href="{{ "/" | relURL }}" accesskey="1">{{ .Site.Title }}</a></h1>
     {{ with .Site.Params.description }}
     <p class="description">{{ . }}</p>
     {{ end }}
     {{ end }}
-  </header>
-  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle sidebar menu">
+  </header>  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle sidebar menu">
     <span class="menu-icon"></span>
     <span class="menu-icon"></span>
     <span class="menu-icon"></span>
