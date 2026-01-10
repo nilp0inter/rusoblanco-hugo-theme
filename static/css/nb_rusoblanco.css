@@ -148,6 +148,7 @@ pre {
   max-width: 100%;
   white-space: pre;
   word-wrap: normal;
+  font-size: var(--font-size-sm);
 }
 
 /* Line numbers styling - inline mode */
